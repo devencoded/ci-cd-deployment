@@ -1,0 +1,32 @@
+name: CI/CD Deployment
+
+on:
+  push:
+    branches:
+      - main  # Runs workflow when code is pushed to main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install  # Modify as per your project needs
+
+      - name: Run Tests
+        run: npm test  # Modify based on your stack
+
+      - name: Deploy to Server
+        run: |
+          ssh user@server "cd /var/www/project && git pull && npm install && pm2 restart all"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+#"Added GitHub Actions CI/CD workflow"
