@@ -29,4 +29,4 @@ jobs:
           ssh user@server "cd /var/www/project && git pull && npm install && pm2 restart all"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-#"Added GitHub Actions CI/CD workflow"
+
